@@ -299,7 +299,7 @@
                 ctx.stroke();
             }
             
-            // Park trees in background
+            // Peach trees in background
             for (let i = 0; i < 4; i++) {
                 const treeX = i * 120 + (frames * 0.1) % 480 - 60;
                 if (treeX > -50 && treeX < canvas.width + 50) {
@@ -307,11 +307,42 @@
                     ctx.fillStyle = '#8B4513';
                     ctx.fillRect(treeX, canvas.height * 0.5, 8, canvas.height * 0.2);
                     
-                    // Tree crown
+                    // Tree crown (green leaves)
                     ctx.fillStyle = '#228B22';
                     ctx.beginPath();
                     ctx.arc(treeX + 4, canvas.height * 0.5, 25, 0, Math.PI * 2);
                     ctx.fill();
+                    
+                    // Peach fruits (fixed positions per tree)
+                    const peachPositions = [
+                        {x: -12, y: -8}, {x: 8, y: -15}, {x: 18, y: -5},
+                        {x: -8, y: 5}, {x: 12, y: 10}, {x: -18, y: 12}
+                    ];
+                    
+                    peachPositions.forEach(pos => {
+                        const peachX = treeX + 4 + pos.x;
+                        const peachY = canvas.height * 0.5 + pos.y;
+                        
+                        // Peach body (orange-pink gradient effect)
+                        ctx.fillStyle = '#FFB347';
+                        ctx.beginPath();
+                        ctx.arc(peachX, peachY, 4, 0, Math.PI * 2);
+                        ctx.fill();
+                        
+                        // Peach highlight
+                        ctx.fillStyle = '#FFCCCB';
+                        ctx.beginPath();
+                        ctx.arc(peachX - 1, peachY - 1, 2, 0, Math.PI * 2);
+                        ctx.fill();
+                        
+                        // Peach crease
+                        ctx.strokeStyle = '#FF6347';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(peachX, peachY - 3);
+                        ctx.lineTo(peachX, peachY + 3);
+                        ctx.stroke();
+                    });
                 }
             }
             
